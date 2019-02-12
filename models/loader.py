@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem.snowball import SnowballStemmer
 from nltk.tokenize import casual_tokenize
 
-def load_data(label, proportion, min_df):
+def load_data(label, target_p, min_df):
     X, y, y2 = importion()
     #Mechanical and Civil Engineering only
     X = X[(y==3) | (y==4)]
@@ -16,7 +16,7 @@ def load_data(label, proportion, min_df):
     y = label_picker(y2, label)
 
     #Remove rows to achieve the desired proportion
-    n = int(np.floor((sum(y)/len(y)-0.05)*len(y)))
+    n = int(np.floor((sum(y)/len(y)-target_p)*len(y)))
     idx = random.sample(set(y[y==1].index), n)
     y = y.drop(idx)
     X = X.drop(idx)
