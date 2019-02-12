@@ -20,6 +20,8 @@ def load_data(label, target_p, min_df):
     idx = random.sample(set(y[y==1].index), n)
     y = y.drop(idx)
     X = X.drop(idx)
+    
+    y.index = range(len(y))
 
     X, vocab = vectorize(X, min_df)
     return X, y, vocab
