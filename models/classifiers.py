@@ -25,6 +25,16 @@ class ClassyModel(object):
         return metric
 
 def simulate(model, label):
+    """
+    We run this 10 times.
+    The randomness comes from the load_data function: in particular, which
+    subset of the positive class is used. We keep this proportion at 5%, but
+    randomize the sample that is chosen. This is meant to simulate the
+    differences in quality of data that might occur.
+
+    The mean of the result (scores_i) should give an idea of the (average) rate
+    at which performance improves.
+    """
     CM = ClassyModel(model)
     scores_i = np.zeros((10, 12))
     for i in range(10):
@@ -41,4 +51,4 @@ def simulate(model, label):
             scores.append(score)
         print("----------------------------")
         scores_i[i] = scores
-    return np.mean(scores_i, axis=0)
+    return scores
